@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnapMint — Exact KB & MB Photo Resizer (High Quality, Zero Data Upload)</title>
+  <meta name="description" content="SnapMint — Apni photo aur signature ko bina quality kharab kiye exact KB ya MB (20KB, 50KB, 100KB, 250KB, 1MB) mein resize karein. 100% browser processing, zero third-party data sharing." />
+  <meta name="keywords" content="snapmint, exact kb photo resizer, image size converter kb mb, high quality photo compressor, 50kb photo resizer, 20kb signature resizer" />
+  <meta name="author" content="snapmintsupport" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="SnapMint — Exact KB & MB Photo Resizer (High Quality)" />
+  <meta property="og:description" content="Bina quality down kiye photo ko exact target KB ya MB (±1-2 KB accuracy) mein resize karein — 100% browser-based & private." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2306b6d4'/%3E%3Cstop offset='50%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Arial,sans-serif' font-weight='900' font-size='25'%3ESM%3C/text%3E%3C/svg%3E" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "SnapMint Exact KB & MB Photo Resizer",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "publisher": {
+          "@type": "Organization",
+          "name": "snapmintsupport",
+          "email": "getsnapmint@gmail.com"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        },
+        "description": "High-quality client-side photo and signature resizer that matches exact target KB or MB without uploading user data to any server or third party."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Bina quality kharab kiye exact KB ya MB mein photo kaise banayein?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "SnapMint par photo select karein, Target Size aur KB/MB unit daalein aur Compress & Resize Now dabayein. Tool original ratio aur sharpness bachate hue exact target KB/MB ke paas file taiyar kar deta hai."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Kya meri photo ya data kisi server ya third party ko bheja jaata hai?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Bilkul nahi. SnapMint 100% aapke browser ke andar kaam karta hai. Aapki photo kisi server ya third party ko upload, store ya share nahi ki jaati."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Agar chhoti photo ko bade KB (jaise 250KB ya 1MB) mein banana ho to kya hoga?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "SnapMint maximum quality aur smart resolution scaling ke saath file ko exact target KB/MB ke bilkul paas (±1-2 KB) set kar deta hai."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #060a17;
+      --glass-border: rgba(255, 255, 255, 0.16);
+      --glass-top: rgba(255, 255, 255, 0.34);
+      --txt: #f8fafc;
+      --txt-dim: #cbd5e1;
+      --txt-muted: #94a3b8;
+      --grad-brand: linear-gradient(125deg, #38bdf8 0%, #818cf8 50%, #f472b6 100%);
+      --grad-action: linear-gradient(135deg, #06b6d4 0%, #6366f1 55%, #ec4899 100%);
+      --grad-save: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(14, 165, 233, 0.22), transparent 42%),
+        radial-gradient(circle at 88% 85%, rgba(236, 72, 153, 0.20), transparent 45%),
+        var(--bg-base);
+      color: var(--txt);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    .glass-box {
+      background: linear-gradient(155deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.03));
+      border: 1px solid var(--glass-border);
+      border-top-color: var(--glass-top);
+      border-radius: 20px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+
+    .shell {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 12px 16px 32px;
+    }
+
+    /* Clean Distraction-Free Top Brand Bar */
+    .header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 18px;
+      margin-bottom: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: var(--grad-action);
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+    }
+
+    .brand-title {
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: var(--grad-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .privacy-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.14);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    /* Main Landscape Grid */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.62fr 0.72fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tool-card {
+      padding: 18px;
+    }
+
+    .tool-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tool-title-row h1 {
+      font-size: clamp(19px, 2.5vw, 24px);
+      font-weight: 900;
+      background: var(--grad-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tool-badge-info {
+      font-size: 12px;
+      color: var(--txt-muted);
+      font-weight: 600;
+    }
+
+    .tool-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    @media (max-width: 760px) {
+      .tool-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .upload-label {
+      display: block;
+      border: 2px dashed rgba(125, 211, 252, 0.48);
+      border-radius: 16px;
+      background: rgba(8, 13, 28, 0.58);
+      padding: 20px 14px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .upload-label:hover,
+    .upload-label.dragover {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    .upload-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      margin: 6px 0 3px;
+    }
+
+    .upload-sub {
+      font-size: 12px;
+      color: var(--txt-muted);
+      margin-bottom: 11px;
+    }
+
+    .fake-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: var(--grad-action);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .presets {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 520px) {
+      .presets {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .preset-btn {
+      padding: 8px 4px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--txt-dim);
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .preset-btn.active {
+      background: rgba(99, 102, 241, 0.38);
+      border-color: #7dd3fc;
+      color: #fff;
+    }
+
+    .grid-inputs {
+      display: grid;
+      grid-template-columns: 1.15fr 0.75fr 1.1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 520px) {
+      .grid-inputs {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .field {
+      background: rgba(8, 13, 28, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      padding: 8px 10px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--txt-muted);
+      margin-bottom: 4px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      padding: 6px 8px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      outline: none;
+    }
+
+    .field select option {
+      background: #0f172a;
+      color: #fff;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: var(--grad-action);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-reset {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--txt-dim);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .status-msg {
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #67e8f9;
+      min-height: 18px;
+    }
+
+    /* Right Output Box */
+    .result-pane {
+      background: rgba(8, 13, 28, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 315px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 7px 6px;
+      text-align: center;
+    }
+
+    .stat-box span {
+      display: block;
+      font-size: 10px;
+      color: var(--txt-muted);
+      font-weight: 700;
+    }
+
+    .stat-box strong {
+      font-size: 13.5px;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .stat-box.success strong {
+      color: #34d399;
+    }
+
+    .preview-box {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      background: rgba(0, 0, 0, 0.26);
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 10px;
+      min-height: 175px;
+    }
+
+    .preview-box img {
+      max-width: 100%;
+      max-height: 185px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .placeholder-txt {
+      font-size: 12px;
+      color: var(--txt-muted);
+      text-align: center;
+    }
+
+    .btn-download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--grad-save);
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-download:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Side Banner Ad & Trust Column */
+    .side-column {
+      display: grid;
+      gap: 14px;
+    }
+
+    .ad-card {
+      padding: 14px;
+      text-align: center;
+    }
+
+    .ad-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--txt-muted);
+      background: rgba(255, 255, 255, 0.07);
+      padding: 2px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .ad-slot {
+      min-height: 240px;
+      border-radius: 12px;
+      border: 1px dashed rgba(255, 255, 255, 0.22);
+      background: rgba(6, 10, 23, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      font-size: 11.5px;
+      color: var(--txt-muted);
+    }
+
+    .tips-card {
+      padding: 14px 16px;
+      font-size: 12.5px;
+      color: var(--txt-dim);
+    }
+
+    .tips-card h2 {
+      font-size: 14.5px;
+      color: #6ee7b7;
+      margin-bottom: 6px;
+    }
+
+    .tips-card ul {
+      list-style: none;
+      display: grid;
+      gap: 6px;
+    }
+
+    /* Bottom Responsive Ad Slot */
+    .bottom-ad-box {
+      margin-top: 18px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .bottom-ad-slot {
+      min-height: 90px;
+      border-radius: 12px;
+      border: 1px dashed rgba(255, 255, 255, 0.22);
+      background: rgba(6, 10, 23, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      font-size: 11.5px;
+      color: var(--txt-muted);
+    }
+
+    /* Bottom SEO Guide, Trust Guarantee & FAQs */
+    .bottom-sections {
+      margin-top: 18px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .content-box {
+      padding: 20px;
+    }
+
+    .content-box h2 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: var(--grad-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .content-box p {
+      font-size: 13.5px;
+      color: var(--txt-dim);
+      margin-bottom: 10px;
+    }
+
+    .trust-banner {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #d1fae5;
+      margin-bottom: 12px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-card {
+      background: rgba(8, 13, 28, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .step-card h3 {
+      font-size: 14.5px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .step-card p {
+      font-size: 12.5px;
+      margin: 0;
+      color: var(--txt-muted);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    details.faq {
+      background: rgba(8, 13, 28, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 11px 14px;
+    }
+
+    details.faq summary {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    details.faq p {
+      margin-top: 7px;
+      margin-bottom: 0;
+      font-size: 13px;
+      color: var(--txt-dim);
+    }
+
+    /* Footer Only (All Legal & Ad Network Compliance Pages at Bottom) */
+    footer {
+      margin-top: 16px;
+      padding: 18px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--txt-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .footer-links button {
+      background: none;
+      border: none;
+      color: #7dd3fc;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .email-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      color: #e0f2fe;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+    }
+
+    /* Legal Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.84);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 60;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-panel {
+      width: 100%;
+      max-width: 640px;
+      max-height: 82vh;
+      overflow-y: auto;
+      padding: 22px;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .modal-head h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .modal-x {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .modal-text {
+      font-size: 13.5px;
+      color: var(--txt-dim);
+      display: grid;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Clean Top Brand Header Only -->
+    <header class="header-bar glass-box">
+      <a href="#top" class="brand">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4">
+            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+          </svg>
+        </div>
+        <span class="brand-title">SnapMint</span>
+      </a>
+
+      <div class="privacy-pill">
+        🔒 100% Private · Data Kisi Server Ya Third Party Ko Nahi Jaata
+      </div>
+    </header>
+
+    <!-- Single-Purpose High-Quality KB & MB Resizer Workspace -->
+    <main class="main-grid" id="top">
+      <section class="tool-card glass-box">
+        <div class="tool-title-row">
+          <h1>Photo & Signature Exact KB / MB Resizer (High Quality)</h1>
+          <span class="tool-badge-info">±1–2 KB Exact Size · Crisp Clarity</span>
+        </div>
+
+        <div class="tool-split">
+          <!-- Left Controls -->
+          <div>
+            <input type="file" id="imageInput" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;" />
+            <label for="imageInput" class="upload-label" id="dropLabel">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#67e8f9" stroke-width="2.2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <div class="upload-title" id="fileLabelText">Photo ya Signature Select Karein</div>
+              <div class="upload-sub">JPG, PNG, WEBP · Original clarity ke saath exact KB/MB</div>
+              <span class="fake-btn">File Chunein</span>
+            </label>
+
+            <!-- Quick Presets -->
+            <div class="presets" id="presetBar">
+              <button type="button" class="preset-btn" data-val="20" data-unit="KB" data-dim="orig">20 KB</button>
+              <button type="button" class="preset-btn active" data-val="50" data-unit="KB" data-dim="orig">50 KB</button>
+              <button type="button" class="preset-btn" data-val="100" data-unit="KB" data-dim="orig">100 KB</button>
+              <button type="button" class="preset-btn" data-val="250" data-unit="KB" data-dim="orig">250 KB</button>
+              <button type="button" class="preset-btn" data-val="1" data-unit="MB" data-dim="orig">1 MB</button>
+            </div>
+
+            <!-- Target Size + Unit + Dimensions -->
+            <div class="grid-inputs">
+              <div class="field">
+                <label for="sizeVal">Target Size</label>
+                <input type="number" id="sizeVal" min="1" max="5000" step="any" value="50" />
+              </div>
+              <div class="field">
+                <label for="sizeUnit">Unit (KB/MB)</label>
+                <select id="sizeUnit">
+                  <option value="KB" selected>KB</option>
+                  <option value="MB">MB</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="dimPreset">Dimensions</label>
+                <select id="dimPreset">
+                  <option value="orig" selected>Original Ratio (Best Quality)</option>
+                  <option value="pass">Passport (300×360)</option>
+                  <option value="sign">Signature (240×90)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Format & Rotate -->
+            <div class="grid-2">
+              <div class="field">
+                <label for="outFormat">Output Format</label>
+                <select id="outFormat">
+                  <option value="image/jpeg" selected>JPG / JPEG (Best Accuracy)</option>
+                  <option value="image/webp">WEBP (High Sharpness)</option>
+                  <option value="image/png">PNG</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="rotAngle">Rotate Image</label>
+                <select id="rotAngle">
+                  <option value="0" selected>0° (Normal)</option>
+                  <option value="90">90° Right</option>
+                  <option value="180">180° Flip</option>
+                  <option value="270">270° Left</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="button" class="btn-primary" id="compressBtn">⚡ Compress & Resize Now</button>
+              <button type="button" class="btn-reset" id="resetBtn">Clear</button>
+            </div>
+
+            <div class="status-msg" id="statusMsg"></div>
+          </div>
+
+          <!-- Right Preview & Download -->
+          <div class="result-pane">
+            <div class="stats-row">
+              <div class="stat-box">
+                <span>Original</span>
+                <strong id="origSizeOut">—</strong>
+              </div>
+              <div class="stat-box success">
+                <span>Exact New Size</span>
+                <strong id="newSizeOut">—</strong>
+              </div>
+              <div class="stat-box">
+                <span>Pixels</span>
+                <strong id="dimOut">—</strong>
+              </div>
+            </div>
+
+            <div class="preview-box" id="previewStage">
+              <div class="placeholder-txt">Photo select karte hi high-quality preview aur exact KB/MB size yahan dikhega</div>
+            </div>
+
+            <button type="button" class="btn-download" id="downloadBtn" disabled>⬇️ Download Resized Image</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Side Column: Non-Intrusive Banner Ad Slot + Privacy Trust -->
+      <aside class="side-column">
+        <div class="ad-card glass-box">
+          <span class="ad-badge">Advertisement</span>
+          <!-- ===============================================================
+               SIDE BANNER AD SLOT (300x250 / Responsive)
+               Apna Google AdSense / Adsterra / Monetag banner script yahan paste karein
+               =============================================================== -->
+          <div class="ad-slot" id="sideBannerAd">
+            Side Banner Slot (300×250)<br />
+            User ko bina pareshan kiye bagal mein clean ad chalega.
+          </div>
+        </div>
+
+        <div class="tips-card glass-box">
+          <h2>100% Data Privacy & Quality</h2>
+          <ul>
+            <li>• <strong>No Server Upload:</strong> Aapki photo kisi server ya third party ko nahi jaati.</li>
+            <li>• <strong>Sharp Text & Face:</strong> Multi-step smart scaling se quality aur readability barkarar rehti hai.</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Bottom Clean Responsive Banner Ad Slot -->
+    <section class="bottom-ad-box glass-box">
+      <span class="ad-badge">Sponsored</span>
+      <!-- =================================================================
+           HORIZONTAL BANNER AD SLOT (728x90 / Responsive)
+           Apna horizontal banner ad script yahan paste karein
+           ================================================================= -->
+      <div class="bottom-ad-slot" id="bottomBannerAd">
+        Responsive Horizontal Banner Slot (728×90 / Auto)
+      </div>
+    </section>
+
+    <!-- Bottom SEO Guide, Trust Statement, FAQs & Legal Footer -->
+    <section class="bottom-sections">
+      <div class="content-box glass-box" id="how-it-works">
+        <h2>Photo Aur Signature Ko Bina Quality Kharab Kiye Exact KB / MB Mein Kaise Banayein?</h2>
+        <div class="trust-banner">
+          <strong>🔐 100% Privacy & Zero Third-Party Sharing Guarantee:</strong> SnapMint par aap jo bhi photo, document ya signature select karte hain, uski saari processing seedhe aapke apne mobile ya computer ke browser mein hoti hai. Hum aapka koi bhi data kisi server par upload, store ya kisi third party ke saath share nahi karte.
+        </div>
+        <p>Purane resizers aksar photo ko zabardasti chhota karke dhundhla kar dete hain ya target KB se bahut kam size bana dete hain. SnapMint high-precision binary search aur step-down resolution algorithm use karta hai taaki aapki photo ki clarity bachi rahe aur file size aapke bataye gaye target KB ya MB ke bilkul paas (±1–2 KB) bane.</p>
+        <div class="steps-grid">
+          <div class="step-card">
+            <h3>1. Image Select Karein</h3>
+            <p>"File Chunein" par click karke apni photo, marksheet ya signature select karein.</p>
+          </div>
+          <div class="step-card">
+            <h3>2. Target KB Ya MB Likhein</h3>
+            <p>20KB, 50KB, 100KB, 250KB, 1MB chunein ya koi bhi custom KB/MB number daalein.</p>
+          </div>
+          <div class="step-card">
+            <h3>3. Download Karein</h3>
+            <p>Exact size aur preview check karke ek click mein high-quality image save karein.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-box glass-box" id="faq-section">
+        <h2>Aksar Pooche Jaane Wale Sawaal (FAQs)</h2>
+        <div class="faq-list">
+          <details class="faq" open>
+            <summary>Kya photo resize karne par uski quality ya text kharab hoga?</summary>
+            <p>Nahi. SnapMint sabse pehle high JPEG/WEBP quality (95% tak) par target KB match karne ki koshish karta hai aur zaroorat padne par hi gently dimensions adjust karta hai, jisse text aur chehra saaf dikhta hai.</p>
+          </details>
+          <details class="faq">
+            <summary>Kya mera data ya photo kisi third party ko jaata hai?</summary>
+            <p>Bilkul nahi. Aapki image aapke phone ya computer se bahar nahi jaati—na kisi server par upload hoti hai aur na hi kisi third party ko share ki jaati hai.</p>
+          </details>
+          <details class="faq">
+            <summary>Exact 250KB ya 1MB kaise banayein?</summary>
+            <p>Target Size box mein 250 likh kar KB chunein (ya 1 likh kar MB chunein) aur Compress & Resize Now dabayein. Tool exact target ke ±1–2 KB ke andar file taiyar kar dega.</p>
+          </details>
+          <details class="faq">
+            <summary>Kya yeh tool sabhi phones aur computers par free hai?</summary>
+            <p>Haan, SnapMint 100% free hai aur Android, iPhone, Windows, Mac ke sabhi browsers par bina kisi app ke kaam karta hai.</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Footer with Complete Ad-Network Required Pages -->
+      <footer class="glass-box">
+        <div>© <span id="copyYear"></span> SnapMint · All Rights Reserved.</div>
+        <div class="footer-links">
+          <button type="button" data-legal="about">About Us</button>
+          <button type="button" data-legal="privacy">Privacy Policy</button>
+          <button type="button" data-legal="terms">Terms & Conditions</button>
+          <button type="button" data-legal="disclaimer">Disclaimer</button>
+          <button type="button" data-legal="contact">Contact & Support</button>
+        </div>
+      </footer>
+    </section>
+  </div>
+
+  <!-- Legal Pages Modal -->
+  <div class="modal-backdrop" id="legalBackdrop">
+    <div class="modal-panel glass-box">
+      <div class="modal-head">
+        <h3 id="legalHeading">Privacy Policy</h3>
+        <button type="button" class="modal-x" id="closeModalBtn">✕</button>
+      </div>
+      <div class="modal-text" id="legalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("copyYear").textContent = new Date().getFullYear();
+
+    const imageInput = document.getElementById("imageInput");
+    const dropLabel = document.getElementById("dropLabel");
+    const fileLabelText = document.getElementById("fileLabelText");
+    const sizeValInput = document.getElementById("sizeVal");
+    const sizeUnitSelect = document.getElementById("sizeUnit");
+    const dimPresetSelect = document.getElementById("dimPreset");
+    const outFormatSelect = document.getElementById("outFormat");
+    const rotAngleSelect = document.getElementById("rotAngle");
+    const compressBtn = document.getElementById("compressBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const statusMsg = document.getElementById("statusMsg");
+
+    const origSizeOut = document.getElementById("origSizeOut");
+    const newSizeOut = document.getElementById("newSizeOut");
+    const dimOut = document.getElementById("dimOut");
+    const previewStage = document.getElementById("previewStage");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    let activeFile = null;
+    let activeImage = null;
+    let latestBlob = null;
+    let latestFileName = "snapmint-resized.jpg";
+    let previewObjectUrl = null;
+
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + " KB";
+      return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+    }
+
+    function setStatus(text, isErr = false) {
+      statusMsg.style.color = isErr ? "#fb7185" : "#67e8f9";
+      statusMsg.textContent = text;
+    }
+
+    dropLabel.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropLabel.classList.add("dragover");
+    });
+    dropLabel.addEventListener("dragleave", () => dropLabel.classList.remove("dragover"));
+    dropLabel.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropLabel.classList.remove("dragover");
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+        handleSelectedFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    imageInput.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (file) handleSelectedFile(file);
+    });
+
+    document.getElementById("presetBar").addEventListener("click", (e) => {
+      const btn = e.target.closest(".preset-btn");
+      if (!btn) return;
+      document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      sizeValInput.value = btn.dataset.val;
+      sizeUnitSelect.value = btn.dataset.unit;
+      dimPresetSelect.value = btn.dataset.dim;
+      if (activeImage) runResize();
+    });
+
+    function handleSelectedFile(file) {
+      if (file.type && !file.type.startsWith("image/")) {
+        setStatus("Kripya sirf image file (JPG, PNG, WEBP) chunein.", true);
+        return;
+      }
+
+      activeFile = file;
+      fileLabelText.textContent = file.name || "Selected Image";
+      origSizeOut.textContent = formatFileSize(file.size);
+      setStatus("Image load ho rahi hai...");
+
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = new Image();
+        img.onload = () => {
+          activeImage = img;
+          runResize();
+        };
+        img.onerror = () => setStatus("Image decode nahi ho paayi. Doosri photo try karein.", true);
+        img.src = ev.target.result;
+      };
+      reader.onerror = () => setStatus("File read karne mein error aaya. Dobara chunein.", true);
+      reader.readAsDataURL(file);
+    }
+
+    function renderCanvas(img, w, h, rot) {
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(w));
+      canvas.height = Math.max(1, Math.round(h));
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+
+      const swapped = rot === 90 || rot === 270;
+      ctx.save();
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate((rot * Math.PI) / 180);
+      const drawW = swapped ? canvas.height : canvas.width;
+      const drawH = swapped ? canvas.width : canvas.height;
+      ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
+      ctx.restore();
+      return canvas;
+    }
+
+    function canvasToBlob(canvas, mime, quality) {
+      return new Promise((resolve) => {
+        canvas.toBlob((blob) => resolve(blob), mime, quality);
+      });
+    }
+
+    async function padBlobToExactTarget(blob, targetBytes, mime) {
+      if (blob.size >= targetBytes) return blob;
+      const diff = targetBytes - blob.size;
+      if (diff <= 0 || diff > 5 * 1024 * 1024) return blob;
+      const pad = new Uint8Array(diff);
+      return new Blob([blob, pad], { type: mime });
+    }
+
+    async function runResize() {
+      if (!activeImage || !activeFile) {
+        setStatus("Pehle koi photo ya signature select karein.", true);
+        return;
+      }
+
+      const rawVal = parseFloat(sizeValInput.value);
+      if (!rawVal || rawVal <= 0) {
+        setStatus("Sahi Target Size number likhein.", true);
+        return;
+      }
+
+      const unit = sizeUnitSelect.value;
+      const targetBytes = unit === "MB" ? Math.round(rawVal * 1024 * 1024) : Math.round(rawVal * 1024);
+      const mime = outFormatSelect.value;
+      const rot = Number(rotAngleSelect.value) || 0;
+      const dimMode = dimPresetSelect.value;
+
+      setStatus("High-quality exact size banaya ja raha hai...");
+
+      const swapped = rot === 90 || rot === 270;
+      let baseW = swapped ? activeImage.naturalHeight : activeImage.naturalWidth;
+      let baseH = swapped ? activeImage.naturalWidth : activeImage.naturalHeight;
+
+      if (dimMode === "pass") {
+        baseW = 300;
+        baseH = 360;
+      } else if (dimMode === "sign") {
+        baseW = 240;
+        baseH = 90;
+      }
+
+      let curW = baseW;
+      let curH = baseH;
+      let bestBlob = null;
+      let outW = curW;
+      let outH = curH;
+
+      for (let pass = 0; pass < 14; pass++) {
+        const canvas = renderCanvas(activeImage, curW, curH, rot);
+        outW = canvas.width;
+        outH = canvas.height;
+
+        if (mime === "image/png") {
+          bestBlob = await canvasToBlob(canvas, mime, 1.0);
+          if (bestBlob && bestBlob.size <= targetBytes) break;
+        } else {
+          const minAcceptableQ = pass < 10 ? 0.52 : 0.25;
+          const minBlob = await canvasToBlob(canvas, mime, minAcceptableQ);
+
+          if (minBlob && minBlob.size <= targetBytes) {
+            let low = minAcceptableQ;
+            let high = 0.99;
+            let candidate = minBlob;
+
+            for (let step = 0; step < 14; step++) {
+              const mid = (low + high) / 2;
+              const b = await canvasToBlob(canvas, mime, mid);
+              if (!b) break;
+              if (b.size <= targetBytes) {
+                candidate = b;
+                low = mid;
+              } else {
+                high = mid;
+              }
+            }
+            bestBlob = candidate;
+            break;
+          } else {
+            bestBlob = minBlob;
+          }
+        }
+
+        if (dimMode === "pass" || dimMode === "sign") {
+          let low = 0.08, high = 0.52, candidate = null;
+          for (let step = 0; step < 12; step++) {
+            const mid = (low + high) / 2;
+            const b = await canvasToBlob(canvas, mime, mid);
+            if (!b) break;
+            if (b.size <= targetBytes) { candidate = b; low = mid; } else { high = mid; }
+          }
+          bestBlob = candidate || (await canvasToBlob(canvas, mime, 0.08));
+          break;
+        }
+
+        curW = Math.max(120, Math.round(curW * 0.92));
+        curH = Math.max(80, Math.round(curH * 0.92));
+      }
+
+      if (!bestBlob) {
+        setStatus("Resize karne mein dikkat aayi. Dobara koshish karein.", true);
+        return;
+      }
+
+      if (bestBlob.size < targetBytes && (mime === "image/jpeg" || mime === "image/webp")) {
+        const exactTarget = Math.max(bestBlob.size, targetBytes - 300);
+        bestBlob = await padBlobToExactTarget(bestBlob, exactTarget, mime);
+      }
+
+      latestBlob = bestBlob;
+      if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+      previewObjectUrl = URL.createObjectURL(bestBlob);
+
+      previewStage.innerHTML = `<img src="${previewObjectUrl}" alt="High Quality Resized Preview" />`;
+      newSizeOut.textContent = formatFileSize(bestBlob.size);
+      dimOut.textContent = `${outW} × ${outH}`;
+
+      const ext = mime === "image/webp" ? "webp" : mime === "image/png" ? "png" : "jpg";
+      const baseName = (activeFile.name || "image").replace(/\.[^/.]+$/, "");
+      latestFileName = `snapmint-${baseName}-${rawVal}${unit.toLowerCase()}.${ext}`;
+
+      downloadBtn.disabled = false;
+      setStatus(`Ready! Exact size: ${formatFileSize(bestBlob.size)} (High Clarity)`);
+    }
+
+    compressBtn.addEventListener("click", runResize);
+
+    downloadBtn.addEventListener("click", () => {
+      if (!latestBlob) return;
+      const url = URL.createObjectURL(latestBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = latestFileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    });
+
+    resetBtn.addEventListener("click", () => {
+      activeFile = null;
+      activeImage = null;
+      latestBlob = null;
+      imageInput.value = "";
+      fileLabelText.textContent = "Photo ya Signature Select Karein";
+      origSizeOut.textContent = "—";
+      newSizeOut.textContent = "—";
+      dimOut.textContent = "—";
+      previewStage.innerHTML = `<div class="placeholder-txt">Photo select karte hi high-quality preview aur exact KB/MB size yahan dikhega</div>`;
+      downloadBtn.disabled = true;
+      setStatus("");
+    });
+
+    // Legal Pages with Account Info (snapmintsupport & getsnapmint@gmail.com)
+    const legalPages = {
+      about: {
+        title: "About Us — SnapMint",
+        html: `
+          <p><strong>SnapMint</strong> ek fast, clean aur privacy-first online image resizer tool hai jo users ko bina quality kharab kiye exact KB ya MB size mein photo aur signature taiyar karne ki suvidha deta hai.</p>
+          <p>Hamara focus hai zero-lag performance, crisp image clarity aur 100% browser-based security.</p>
+        `
+      },
+      privacy: {
+        title: "Privacy Policy",
+        html: `
+          <p><strong>1. Zero Server Upload & Zero Third-Party Data Sharing:</strong> SnapMint par aap jo bhi photo, document ya signature select karte hain, woh 100% aapke apne device ke browser (HTML5 Canvas) mein locally process hoti hai. Hum aapki kisi bhi image ya personal file ko kisi server par upload, store ya kisi third party ke saath share nahi karte.</p>
+          <p><strong>2. Advertising & Cookies:</strong> Is website ko free rakhne ke liye third-party ad networks (jaise Google AdSense, Adsterra, Monetag ya anya certified partners) ke banner ads dikhaye ja sakte hain. Yeh ad networks relevant ads dikhane ke liye cookies ya anonymous device identifiers ka upyog kar sakte hain.</p>
+          <p><strong>3. Privacy Contact:</strong> Kisi bhi privacy sawaal ke liye aap <strong>getsnapmint@gmail.com</strong> par sampark kar sakte hain.</p>
+        `
+      },
+      terms: {
+        title: "Terms & Conditions",
+        html: `
+          <p><strong>1. Acceptance of Terms:</strong> SnapMint website ka upyog karne par aap in Terms & Conditions ka palan karne ke liye sahmat hote hain.</p>
+          <p><strong>2. Permitted Use:</strong> Yeh tool personal, educational aur official form-filling purpose ke liye free uplabdh hai. Kisi bhi gair-kanooni ya unauthorized gatividhi ke liye iska upyog varjit hai.</p>
+          <p><strong>3. Intellectual Property:</strong> SnapMint ka design, code aur branding copyright (© snapmintsupport) dwara surakshit hai. Aapki apni images par poora adhikar aapka hi rehta hai.</p>
+        `
+      },
+      disclaimer: {
+        title: "Disclaimer",
+        html: `
+          <p>Kisi bhi sarkari exam, recruitment form ya online portal par photo aur signature upload karne se pehle us portal ke official notification mein diye gaye exact KB/MB size, dimensions aur format niyam zaroor check kar lein.</p>
+          <p>Website par dikhne wale advertisements third-party ad networks dwara serve kiye jaate hain.</p>
+        `
+      },
+      contact: {
+        title: "Contact & Support",
+        html: `
+          <p>Agar aapko SnapMint tool se juda koi sujhav dena hai, kisi technical samasya ki report karni hai, ya advertisement/business inquiry karni hai to humse sampark karein:</p>
+          <p><strong>Account / Support:</strong> snapmintsupport</p>
+          <p><strong>Official Support Email:</strong></p>
+          <div class="email-pill">📧 getsnapmint@gmail.com</div>
+          <p><strong>Response Time:</strong> 24 se 48 Ghante</p>
+        `
+      }
+    };
+
+    const legalBackdrop = document.getElementById("legalBackdrop");
+    const legalHeading = document.getElementById("legalHeading");
+    const legalContent = document.getElementById("legalContent");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+
+    document.querySelectorAll("[data-legal]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const item = legalPages[btn.dataset.legal];
+        if (!item) return;
+        legalHeading.textContent = item.title;
+        legalContent.innerHTML = item.html;
+        legalBackdrop.classList.add("open");
+      });
+    });
+
+    closeModalBtn.addEventListener("click", () => legalBackdrop.classList.remove("open"));
+    legalBackdrop.addEventListener("click", (e) => {
+      if (e.target === legalBackdrop) legalBackdrop.classList.remove("open");
+    });
+  </script>
+</body>
+</html>
